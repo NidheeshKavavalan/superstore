@@ -1,0 +1,38 @@
+<div class="main__content">
+	<div class="container-fluid">
+		<div class="main__content__head">
+			<h1 class="main__content__title">Ostude ajalugu</h1>
+		</div>
+		<table class="table table-bordered table-sortable">
+			<thead>
+				<tr>
+					<th data-ng-click="vm.sortType='name'; vm.sortReverse = !vm.sortReverse">
+						<i class="fa" data-ng-class="{'fa-sort': vm.sortType!=='name', 'fa-sort-desc': vm.sortType=='name' && !vm.sortReverse, 'fa-sort-asc': vm.sortType=='name' && vm.sortReverse}"></i> Kauba nimi
+					</th>
+					<th>
+						<i class="fa" data-ng-class="{'fa-sort': vm.sortType!=='price', 'fa-sort-desc': vm.sortType=='price' && !vm.sortReverse, 'fa-sort-asc': vm.sortType=='price' && vm.sortReverse}"></i> Hind
+					</th>
+					<th data-ng-click="vm.sortType='date'; vm.sortReverse = !vm.sortReverse">
+						<i class="fa" data-ng-class="{'fa-sort': vm.sortType!=='date', 'fa-sort-desc': vm.sortType=='date' && !vm.sortReverse, 'fa-sort-asc': vm.sortType=='date' && vm.sortReverse}"></i> Aeg
+					</th>
+					<th data-ng-click="vm.sortType='store'; vm.sortReverse = !vm.sortReverse">
+						<i class="fa" data-ng-class="{'fa-sort': vm.sortType!=='store', 'fa-sort-asc': vm.sortType=='store' && !vm.sortReverse, 'fa-sort-desc': vm.sortType=='store' && vm.sortReverse}"></i>Koht
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="row in vm.rows | orderBy:vm.sortType:vm.sortReverse">
+					<td>{{::row.name}}</td>
+					<td>{{::row.price}}</td>
+					<td>{{::row.date}}</td>
+					<td>{{::row.store}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-sm-3 col-sm-push-3">
+			<a class="btn btn-success" target="_self" href="../files/history.xlsx" download="frwgaQXgvtMijk.xlsx">Ekspordi CSV</a>
+		</div>
+	</div>
+</div>
