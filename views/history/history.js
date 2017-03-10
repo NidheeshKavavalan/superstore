@@ -12,7 +12,7 @@
 			url: '/history',
 			views: {
 				"main@default": {
-					templateUrl: '../views/history/history.html',
+					templateUrl: './views/history/history.html',
 					controller: ViewCtrl,
 					controllerAs: 'vm'
 				}

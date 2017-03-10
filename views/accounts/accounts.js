@@ -12,7 +12,7 @@
 			url: '/accounts',
 			views: {
 				"main@default": {
-					templateUrl: '../views/accounts/accounts.html',
+					templateUrl: './views/accounts/accounts.html',
 					controller: ViewCtrl,
 					controllerAs: 'vm'
 				}
