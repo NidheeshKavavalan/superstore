@@ -35,12 +35,6 @@
 		this.$onInit = function() {
 			vm = this;
 
-			vm.rows = [
-				{name: 'Piim', price: 1.99, date: '01.01.2017 12:55', store: 'Kesklinna kauplus'},
-				{name: 'Sai', price: 2, date: '01.01.2017 12:55', store: 'Ülemiste kauplus'},
-				{name: 'Leib', price: 3, date: '01.01.2017 12:55', store: 'Lasnamäe kauplus'},
-				{name: 'Õlu', price: 4, date: '01.01.2017 12:55', store: 'Nõmme pood'}
-			];
 		};
 
 		// Controller on destroy

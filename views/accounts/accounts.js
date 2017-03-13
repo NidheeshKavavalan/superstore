@@ -36,8 +36,8 @@
 			vm = this;
 
 			vm.rows = [
-				{id: '123', name: 'Lisatud nimi 1'},
-				{id: '321', name: 'Lisatud nimi 2'}
+				{ id: '123', name: 'Lisatud nimi 1' },
+				{ id: '321', name: 'Lisatud nimi 2' }
 			];
 
 			vm.add = add;
@@ -55,6 +55,9 @@
 		 *	Function that adds to a table
 		 */
 		function add() {
+			if (vm.name.indexOf('ä') > -1 || vm.name.indexOf('õ') > -1 || vm.name.indexOf('ü') > -1 || vm.name.indexOf('ö') > -1) {
+				vm.name = undefined;
+			}
 			vm.rows.push({
 				id: vm.id,
 				name: vm.name

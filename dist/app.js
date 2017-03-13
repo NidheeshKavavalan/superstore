@@ -60545,20 +60545,102 @@ angular.module('ui.router.state')
 
 	/* State changes
 	/*------------------------------------------------*/
-	.run(['$rootScope', '$http', function($rootScope, $http) {
+	.run(['$rootScope', '$http', '$location', '$window', function($rootScope, $http, $location, $window) {
 
 		$http.get('/please-dont-fail.js').then(function() {
 			// Meant to throw an error
 		});
+
+		/**
+		 *	State change start - to jump with back button
+		 */
+		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+			if (toState.name === 'default.settings') {
+				$location.path('/settings').replace();
+			}
+		});
+
 		/**
 		 *	Do after successful state change
 		 */
 		$rootScope.$on('$stateChangeSuccess', function(event, current, previous) {
 			// Window title
 			window.document.title = current.data.title;
+			$rootScope.scrollable = current.data.scrollable;
 		});
 	}]);
 
+
+})();
+
+(function() {
+	"use strict";
+
+	angular.module('app.accounts', ['ui.router'])
+
+	/* Route
+	/*------------------------------------------------*/
+
+	.config(['$stateProvider', function($stateProvider) {
+		// Parent state
+		$stateProvider.state('default.accounts', {
+			url: '/accounts',
+			views: {
+				"main@default": {
+					templateUrl: './views/accounts/accounts.html',
+					controller: ViewCtrl,
+					controllerAs: 'vm'
+				}
+			},
+			data: {
+				title: 'Superstor | Accounts'
+			}
+		});
+
+	}]);
+
+	// Inject
+	ViewCtrl.$inject = ['$scope'];
+
+	// Controller for navigation component
+	function ViewCtrl($scope) {
+		var vm;
+
+		// Controller on init
+		this.$onInit = function() {
+			vm = this;
+
+			vm.rows = [
+				{ id: '123', name: 'Lisatud nimi 1' },
+				{ id: '321', name: 'Lisatud nimi 2' }
+			];
+
+			vm.add = add;
+		};
+
+		// Controller on destroy
+		this.$onDestroy = function() {
+			// Unbind rootscope listeners
+		};
+
+
+		// Functions
+
+		/**
+		 *	Function that adds to a table
+		 */
+		function add() {
+			if (vm.name.indexOf('ä') > -1 || vm.name.indexOf('õ') > -1 || vm.name.indexOf('ü') > -1 || vm.name.indexOf('ö') > -1) {
+				vm.name = undefined;
+			}
+			vm.rows.push({
+				id: vm.id,
+				name: vm.name
+			});
+			vm.id = undefined;
+			vm.name = undefined;
+		}
+	}
 
 })();
 
@@ -60599,12 +60681,6 @@ angular.module('ui.router.state')
 		this.$onInit = function() {
 			vm = this;
 
-			vm.rows = [
-				{name: 'Piim', price: 1.99, date: '01.01.2017 12:55', store: 'Kesklinna kauplus'},
-				{name: 'Sai', price: 2, date: '01.01.2017 12:55', store: 'Ülemiste kauplus'},
-				{name: 'Leib', price: 3, date: '01.01.2017 12:55', store: 'Lasnamäe kauplus'},
-				{name: 'Õlu', price: 4, date: '01.01.2017 12:55', store: 'Nõmme pood'}
-			];
 		};
 
 		// Controller on destroy
@@ -60635,7 +60711,8 @@ angular.module('ui.router.state')
 				}
 			},
 			data: {
-				title: 'Superstor | settings'
+				title: 'Superstor | settings',
+				scrollable: true
 			}
 		});
 
@@ -60652,79 +60729,30 @@ angular.module('ui.router.state')
 		this.$onInit = function() {
 			vm = this;
 
-		};
-
-		// Controller on destroy
-		this.$onDestroy = function() {
-			// Unbind rootscope listeners
-		};
-	}
-
-})();
-(function() {
-	"use strict";
-
-	angular.module('app.accounts', ['ui.router'])
-
-	/* Route
-	/*------------------------------------------------*/
-
-	.config(['$stateProvider', function($stateProvider) {
-		// Parent state
-		$stateProvider.state('default.accounts', {
-			url: '/accounts',
-			views: {
-				"main@default": {
-					templateUrl: 'views/accounts/accounts.html',
-					controller: ViewCtrl,
-					controllerAs: 'vm'
-				}
-			},
-			data: {
-				title: 'Superstor | Accounts'
-			}
-		});
-
-	}]);
-
-	// Inject
-	ViewCtrl.$inject = ['$scope'];
-
-	// Controller for navigation component
-	function ViewCtrl($scope) {
-		var vm;
-
-		// Controller on init
-		this.$onInit = function() {
-			vm = this;
-
+			vm.page = 0;
 			vm.rows = [
-				{id: '123', name: 'Lisatud nimi 1'},
-				{id: '321', name: 'Lisatud nimi 2'}
+				{name: 'Piim', price: 1.99, date: '01.01.2017 12:55', store: 'Kesklinna kauplus'},
+				{name: 'Sai', price: 2, date: '01.01.2017 12:55', store: 'Ülemiste kauplus'},
+				{name: 'Leib', price: 3, date: '01.01.2017 12:55', store: 'Lasnamäe kauplus'},
+				{name: 'Õlu', price: 4, date: '01.01.2017 12:55', store: 'Nõmme pood'},
+				{name: 'Vein', price: 3.25, date: '01.01.2017 12:55', store: 'Mustamäe kauplus'},
+				{name: 'Vesi', price: 1.99, date: '01.01.2017 12:55', store: 'Kesklinna kauplus'},
+				{name: 'Sai', price: 2, date: '01.01.2017 12:55', store: 'Ülemiste kauplus'},
+				{name: 'Sepik', price: 5, date: '01.01.2017 12:55', store: 'Lasnamäe kauplus'},
+				{name: 'Jahu', price: 1.8, date: '01.01.2017 12:55', store: 'Lasnamäe kauplus'},
+				{name: 'Hakkliha', price: 3.25, date: '01.01.2017 12:55', store: 'Mustamäe kauplus'},
+				{name: 'Keefir', price: 1.99, date: '01.01.2017 12:55', store: 'Nõmme pood'},
+				{name: 'Sibul', price: 2, date: '01.01.2017 12:55', store: 'Ülemiste kauplus'},
+				{name: 'Riis', price: 2.3, date: '01.01.2017 12:55', store: 'Lasnamäe kauplus'},
+				{name: 'Tatar', price: 1.65, date: '01.01.2017 12:55', store: 'Nõmme pood'},
+				{name: 'Tangud', price: 2.25, date: '01.01.2017 12:55', store: 'Mustamäe kauplus'}
 			];
-
-			vm.add = add;
 		};
 
 		// Controller on destroy
 		this.$onDestroy = function() {
 			// Unbind rootscope listeners
 		};
-
-
-		// Functions
-
-		/**
-		 *	Function that adds to a table
-		 */
-		function add() {
-			vm.rows.push({
-				id: vm.id,
-				name: vm.name
-			});
-			vm.id = undefined;
-			vm.name = undefined;
-		}
 	}
 
 })();
