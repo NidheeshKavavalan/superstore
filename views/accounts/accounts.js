@@ -36,8 +36,8 @@
 			vm = this;
 
 			vm.rows = [
-				{ id: '123', name: 'Lisatud nimi 1' },
-				{ id: '321', name: 'Lisatud nimi 2' }
+				{ id: '123', name: 'Added name 1' },
+				{ id: '321', name: 'Added name 2' }
 			];
 
 			vm.add = add;

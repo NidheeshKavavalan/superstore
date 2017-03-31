@@ -1,20 +1,20 @@
 <div class="main__content">
 	<div class="container-fluid">
 		<div class="main__content__head">
-			<h1 class="main__content__title">Seotud kontod</h1>
+			<h1 class="main__content__title">Accounts</h1>
 		</div>
 		<div class="row">
 			<table class="table table-bordered table-sortable">
 				<thead>
 					<tr>
 						<th data-ng-click="vm.sortType='id'; vm.sortReverse = !vm.sortReverse">
-							<i class="fa" data-ng-class="{'fa-sort': vm.sortType!=='id', 'fa-sort-desc': vm.sortType=='id' && !vm.sortReverse, 'fa-sort-asc': vm.sortType=='id' && vm.sortReverse}"></i> Isikukood
+							<i class="fa" data-ng-class="{'fa-sort': vm.sortType!=='id', 'fa-sort-desc': vm.sortType=='id' && !vm.sortReverse, 'fa-sort-asc': vm.sortType=='id' && vm.sortReverse}"></i> Identification number
 						</th>
 						<th>
-							<i class="fa" data-ng-class="{'fa-sort': vm.sortType!=='name', 'fa-sort-desc': vm.sortType=='name' && !vm.sortReverse, 'fa-sort-asc': vm.sortType=='name' && vm.sortReverse}"></i> nimi
+							<i class="fa" data-ng-class="{'fa-sort': vm.sortType!=='name', 'fa-sort-desc': vm.sortType=='name' && !vm.sortReverse, 'fa-sort-asc': vm.sortType=='name' && vm.sortReverse}"></i> name
 						</th>
 						<th>
-							<i class="fa fa-sort"></i> Tegevused
+							<i class="fa fa-sort"></i> Actions
 						</th>
 					</tr>
 				</thead>
@@ -23,18 +23,18 @@
 						<td>{{::row.id || '-'}}</td>
 						<td>{{::row.name || '-'}}</td>
 						<td>
-							<a href="#0">Muuda</a>
+							<a href="#0">Edit</a>
 						</td>
 					</tr>
 					<tr class="input-row">
 						<td>
-							<input type="text" placeholder="Isikukood" class="form-control" data-ng-model="vm.id">
+							<input type="text" placeholder="Identification number" class="form-control" data-ng-model="vm.id">
 						</td>
 						<td>
-							<input type="text" placeholder="Nimi" class="form-control" data-ng-model="vm.name">
+							<input type="text" placeholder="Name" class="form-control" data-ng-model="vm.name">
 						</td>
 						<td>
-							<button type="button" class="btn btn-success" data-ng-click="vm.add()">Lisa</button>
+							<button type="button" class="btn btn-success" data-ng-click="vm.add()">Add</button>
 						</td>
 					</tr>
 				</tbody>
